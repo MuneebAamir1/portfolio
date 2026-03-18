@@ -1,0 +1,272 @@
+/* ═══════════════════════════════════════════════════════════
+   POLISH.CSS — Global cinematic polish layer
+   Applied AFTER globals + sections to avoid overrides.
+   All rules are additive — no overrides of existing styles.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── SCROLL PROGRESS INDICATOR ────────────────────────────────────────────── */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  transform-origin: 0%;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* ─── GLOBAL ANIMATED BACKGROUND SYSTEM ────────────────────────────────────── */
+
+/* Living background inside the stacking wrapper */
+.global-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Slow-moving gradient mesh */
+.global-bg-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(108, 99, 255, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 70%, rgba(255, 107, 157, 0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0, 217, 184, 0.025) 0%, transparent 70%);
+  background-size: 200% 200%;
+  animation: global-mesh-drift 20s ease-in-out infinite;
+  will-change: background-position;
+}
+
+@keyframes global-mesh-drift {
+  0%, 100% { background-position: 0% 30%, 100% 70%, 50% 50%; }
+  33% { background-position: 30% 60%, 70% 30%, 80% 20%; }
+  66% { background-position: 60% 10%, 30% 90%, 20% 80%; }
+}
+
+/* Depth blur blobs — slow float */
+.global-depth-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.5;
+  animation: depth-blob-float 25s ease-in-out infinite;
+  will-change: transform;
+}
+
+.global-depth-blob--1 {
+  top: 15%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  background: rgba(108, 99, 255, 0.04);
+  animation-delay: 0s;
+}
+
+.global-depth-blob--2 {
+  bottom: 20%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 107, 157, 0.03);
+  animation-delay: -8s;
+}
+
+.global-depth-blob--3 {
+  top: 55%;
+  left: 40%;
+  width: 400px;
+  height: 400px;
+  background: rgba(0, 217, 184, 0.02);
+  animation-delay: -16s;
+}
+
+@keyframes depth-blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 25px) scale(0.95); }
+}
+
+/* Subtle grain/noise texture overlay */
+.global-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+}
+
+/* ─── SECTION TRANSITION DISSOLVES ─────────────────────────────────────────── */
+
+/* Fade-dissolve overlays between sections for cinematic flow.
+   Applied via ::before pseudo-element — sections need position: relative. */
+
+.experience-section::before,
+.ts-section::before,
+.proj-section::before,
+.cta-section::before,
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── TECH STACK ENHANCEMENTS ──────────────────────────────────────────────── */
+
+/* Floating y-oscillation for skill cards */
+.ts-card {
+  animation: ts-float 6s ease-in-out infinite;
+}
+
+@keyframes ts-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ─── PROJECTS SECTION ENHANCEMENTS ────────────────────────────────────────── */
+
+/* Ambient glow behind active project card */
+.proj-card--active::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  border-radius: 28px;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+  animation: proj-ambient-pulse 3s ease-in-out infinite;
+}
+
+@keyframes proj-ambient-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+
+/* ─── CTA SECTION ENHANCEMENTS ─────────────────────────────────────────────── */
+
+/* Scroll-based zoom feel via whileInView — already handled in component.
+   Additional CSS polish: */
+
+.cta-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, var(--accent), var(--accent2));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.cta-btn-primary:hover::after {
+  opacity: 0.15;
+}
+
+/* ─── CONTACT SECTION ENHANCEMENTS ─────────────────────────────────────────── */
+
+/* Gradient border animation on focus */
+.contact-input:focus {
+  border-image: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3)) 1;
+  border-image-slice: 1;
+  border-radius: 12px;
+}
+
+/* Float-up placeholder simulation via label animation */
+.contact-field:focus-within .contact-label {
+  color: var(--accent);
+  transform: translateY(-2px);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button ripple placeholder — glow pulse on active  */
+.contact-submit:active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.3) 0%, transparent 70%);
+  animation: ripple-out 0.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-out {
+  0% { opacity: 1; transform: scale(0.8); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* Error shake animation */
+.contact-toast--error {
+  animation: field-shake 0.4s ease;
+}
+
+@keyframes field-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+
+/* ─── GLOBAL SMOOTHING ─────────────────────────────────────────────────────── */
+
+/* will-change hints for GPU compositing on animated sections */
+.experience-section,
+.ts-section,
+.proj-section,
+.cta-section,
+.contact-section,
+.footer-section {
+  will-change: transform;
+}
+
+/* Uniform section entry motion — applied via Framer Motion in components,
+   but CSS fallback for consistency */
+.experience-section,
+.ts-section,
+.proj-section,
+.cta-section,
+.contact-section {
+  transform: translateZ(0); /* force compositing layer */
+}
+
+/* ─── RESPONSIVE: reduce effects on mobile for performance ─────────────────── */
+@media (max-width: 768px) {
+  .global-bg-mesh {
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .global-depth-blob {
+    display: none;
+  }
+
+  .global-noise {
+    display: none;
+  }
+
+  .ts-card {
+    animation: none;
+  }
+
+  .proj-card--active::before {
+    display: none;
+  }
+
+  .scroll-progress {
+    height: 2px;
+  }
+}
