@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    HOW TO CONNECT EMAILJS:
@@ -153,8 +154,7 @@ export default function ContactSection() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // Placeholder submit — replace with EmailJS (see comments at top)
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -166,12 +166,33 @@ export default function ContactSection() {
 
     setStatus("sending");
 
-    // Simulate send — replace with real EmailJS call
-    setTimeout(() => {
+    try {
+      const response = await emailjs.send(
+        "service_s8v7ui7",
+        "template_3oas7wd",
+        {
+          name: form.name,
+          from_name: form.name,
+          email: form.email,
+          reply_to: form.email,
+          subject: form.subject,
+          message: form.message,
+        },
+        "Gd6RzAIhxQxCm128v" // Pass public key as direct string
+      );
+      
+      console.log("EmailJS Success:", response.status, response.text);
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
-    }, 1200);
+    } catch (error: any) {
+      // Extract the actual text from the EmailJS error payload
+      const errorMsg = error?.text || error?.message || JSON.stringify(error);
+      console.error("EmailJS error:", errorMsg);
+      alert("Error sending message: " + errorMsg);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 2000);
+    }
   };
 
   return (
@@ -245,7 +266,7 @@ export default function ContactSection() {
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="M22 4L12 13 2 4" />
             </svg>
-            <span>muneebaamir.dev@gmail.com</span>
+            <span>hello@muneebaamir.dev</span>
           </div>
         </motion.div>
 
