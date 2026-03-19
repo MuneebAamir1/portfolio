@@ -1,7 +1,7 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, Html, useProgress } from "@react-three/drei";
 import * as THREE from "three";
 
 // ---------- constants you can tweak easily ----------
@@ -127,6 +127,20 @@ function SceneCanvas() {
 
 import { motion } from "framer-motion";
 
+function CanvasLoader() {
+  const { progress } = useProgress();
+  return (
+    <Html center>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", marginTop: "40px" }}>
+        <div className="spinner" style={{ borderColor: "rgba(108, 99, 255, 0.2)", borderTopColor: "var(--accent)" }}></div>
+        <span style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "2px", color: "var(--accent)" }}>
+          {progress.toFixed(0)}%
+        </span>
+      </div>
+    </Html>
+  );
+}
+
 export default function AvatarModel({ wrapStyle }: { wrapStyle?: any }) {
   return (
     <motion.div className="model-canvas-wrap" style={wrapStyle}>
@@ -136,7 +150,9 @@ export default function AvatarModel({ wrapStyle }: { wrapStyle?: any }) {
         <directionalLight position={[-2, 0.5, 1.5]} intensity={0.35} color={0x8888ff} />
         <pointLight position={[-1, 2, -2]} intensity={0.5} distance={8} color={0xFF6B9D} />
         <pointLight position={[0, 3, 0]} intensity={0.3} distance={6} color={0x6C63FF} />
-        <SceneCanvas />
+        <Suspense fallback={<CanvasLoader />}>
+          <SceneCanvas />
+        </Suspense>
       </Canvas>
     </motion.div>
   );
