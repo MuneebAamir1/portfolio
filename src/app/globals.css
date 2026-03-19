@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 *,
@@ -30,6 +29,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   overflow-x: hidden;
+  scrollbar-width: none;
 }
 
 body::before {
@@ -40,6 +40,27 @@ body::before {
   pointer-events: none;
   z-index: 1;
   opacity: 0.5;
+}
+
+/* ── Skip-to-content link (accessibility — visible on focus) ────────────── */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 /* Navbar */
@@ -882,12 +903,10 @@ body::before {
   height: 600px;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(108, 99, 255, 0.07) 0%,
-    rgba(255, 107, 157, 0.04) 35%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(108, 99, 255, 0.07) 0%,
+      rgba(255, 107, 157, 0.04) 35%,
+      transparent 70%);
   transform: translate(-50%, -50%);
   transition: opacity 0.4s ease;
   z-index: 0;
@@ -1239,12 +1258,10 @@ body::before {
   height: 650px;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(108, 99, 255, 0.06) 0%,
-    rgba(0, 217, 184, 0.035) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(108, 99, 255, 0.06) 0%,
+      rgba(0, 217, 184, 0.035) 40%,
+      transparent 70%);
   transform: translate(-50%, -50%);
   transition: opacity 0.45s ease;
   z-index: 0;
@@ -1334,8 +1351,15 @@ body::before {
 
 /* ── Floating animation ── */
 @keyframes ts-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* ── Glass card ── */
@@ -1488,12 +1512,10 @@ body::before {
   height: 700px;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(108, 99, 255, 0.055) 0%,
-    rgba(255, 107, 157, 0.03) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(108, 99, 255, 0.055) 0%,
+      rgba(255, 107, 157, 0.03) 40%,
+      transparent 70%);
   transform: translate(-50%, -50%);
   transition: opacity 0.45s ease;
   z-index: 0;
@@ -1829,4 +1851,4 @@ body::before {
     width: 38px;
     height: 38px;
   }
-}
+}

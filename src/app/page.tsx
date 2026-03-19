@@ -1,4 +1,3 @@
-"use client";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -14,7 +13,7 @@ export default function Home() {
     <>
       <ScrollProgress />
       <Navbar />
-      <main>
+      <main id="main-content">
         <HeroSection />
         {/* Stacking wrapper — ensures all sections below the hero's
             260vh scroll-root sit ABOVE the fixed hero scene (z-index 2).

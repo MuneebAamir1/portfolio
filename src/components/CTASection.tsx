@@ -65,7 +65,7 @@ export default function CTASection() {
   const magnetic = useMagneticButton(btnRef);
 
   return (
-    <section className="cta-section">
+    <section className="cta-section" id="start">
       {/* Animated gradient background flow */}
       <div className="cta-gradient-bg" aria-hidden="true" />
 
@@ -128,7 +128,9 @@ export default function CTASection() {
 
             {/* Secondary ghost */}
             <motion.a
-              href="#"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-ghost"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}

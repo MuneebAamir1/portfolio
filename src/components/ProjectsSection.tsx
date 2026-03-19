@@ -23,6 +23,8 @@ const projects = [
     desc: "A cinematic 3D portfolio with scroll-driven storytelling and WebGL model integration.",
     tech: ["Next.js", "Three.js", "Framer Motion"],
     gradient: "linear-gradient(135deg, #6C63FF 0%, #FF6B9D 50%, #00D9B8 100%)",
+    link: "https://muneebaamir.dev",
+    github: "https://github.com/muneebaamir/portfolio",
   },
   {
     id: 2,
@@ -30,6 +32,8 @@ const projects = [
     desc: "Full-stack marketplace with real-time inventory, payments, and responsive storefront.",
     tech: ["React", "Node.js", "MongoDB", "Stripe"],
     gradient: "linear-gradient(135deg, #FF6B9D 0%, #FF9A56 50%, #6C63FF 100%)",
+    link: "#",
+    github: "https://github.com/muneebaamir",
   },
   {
     id: 3,
@@ -37,6 +41,8 @@ const projects = [
     desc: "Data visualization suite with live charts, anomaly detection, and predictive insights.",
     tech: ["Next.js", "Python", "PostgreSQL", "D3.js"],
     gradient: "linear-gradient(135deg, #00D9B8 0%, #6C63FF 50%, #FF6B9D 100%)",
+    link: "#",
+    github: "https://github.com/muneebaamir",
   },
   {
     id: 4,
@@ -44,6 +50,8 @@ const projects = [
     desc: "Omni-channel outreach system with AI lead scoring and automated follow-ups.",
     tech: ["n8n", "Twilio", "GoHighLevel", "Node.js"],
     gradient: "linear-gradient(135deg, #6C63FF 0%, #00D9B8 50%, #FF9A56 100%)",
+    link: "#",
+    github: "https://github.com/muneebaamir",
   },
   {
     id: 5,
@@ -51,6 +59,8 @@ const projects = [
     desc: "WebSocket-powered workspace with live cursors, shared editing, and role-based access.",
     tech: ["React", "Socket.io", "Express", "Redis"],
     gradient: "linear-gradient(135deg, #FF9A56 0%, #FF6B9D 50%, #00D9B8 100%)",
+    link: "#",
+    github: "https://github.com/muneebaamir",
   },
 ];
 
@@ -221,6 +231,34 @@ const ProjectCard = memo(function ProjectCard({
             </span>
           ))}
         </div>
+        {isActive && (
+          <div className="proj-card-links">
+            {project.link && project.link !== "#" && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} live demo`}
+                className="proj-card-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Live Demo ↗
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title} source code on GitHub`}
+                className="proj-card-link proj-card-link--ghost"
+                onClick={(e) => e.stopPropagation()}
+              >
+                GitHub ↗
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Glow border on active */}

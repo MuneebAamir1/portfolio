@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -33,7 +33,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="navbar" style={{ overflow: "visible" }}>
+    <nav className="navbar" style={{ overflow: "visible" }} aria-label="Main Navigation">
       <div className="navbar-logo">Muneeb Aamir</div>
 
       {/* Desktop links — hidden on mobile via CSS media query */}

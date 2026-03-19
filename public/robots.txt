@@ -1,0 +1,10 @@
+# Robots.txt — Muneeb Aamir Portfolio
+# Replace https://muneebaamir.dev with your actual domain
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+Sitemap: https://muneebaamir.dev/sitemap.xml
