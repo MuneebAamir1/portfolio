@@ -11,11 +11,12 @@ import dynamic from "next/dynamic";
 import { setGlobalMouse, setScrollRotY } from "./AvatarModel";
 import HeroBackground from "./HeroBackground";
 
-// Lazy-load the 3D model component — defers the 4.2 MB GLB fetch until after
-// hydration, keeping Largest Contentful Paint (LCP) fast on initial load.
+// Lazy-load the heavyweight 3D model component to free up the main thread
+// during hydration (massive INP improvement). Skeleton is completely invisible
+// as requested, fading seamlessly once loaded.
 const AvatarModel = dynamic(() => import("./AvatarModel"), {
   ssr: false,
-  loading: () => <div style={{ width: "100%", height: "100%" }} aria-hidden="true" />,
+  loading: () => <div style={{ width: "100%", height: "100%", opacity: 0 }} aria-hidden="true" />,
 });
 
 const phrases = ["immersive experiences", "beautiful interfaces", "performant solutions"];
@@ -37,7 +38,7 @@ export default function HeroSection() {
       setModelTargetX(-(window.innerWidth * 0.50));
     };
     compute();
-    window.addEventListener("resize", compute);
+    window.addEventListener("resize", compute, { passive: true });
     return () => window.removeEventListener("resize", compute);
   }, []);
 

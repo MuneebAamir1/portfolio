@@ -10,6 +10,7 @@ const syne = Syne({
   weight: ["400", "600", "700", "800"],
   variable: "--font-display",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const dmSans = DM_Sans({
@@ -17,6 +18,7 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: true,
 });
 
 /* ═══════════════════════════════════════════════════════════════════════════

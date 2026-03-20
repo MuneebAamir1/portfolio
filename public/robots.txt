@@ -1,10 +1,17 @@
-# Robots.txt — Muneeb Aamir Portfolio
-# Replace https://muneebaamir.dev with your actual domain
-
 User-agent: *
 Allow: /
+Allow: /_next/static/
+Allow: /icons/
+Allow: /og-image.png
 Disallow: /admin/
 Disallow: /private/
 Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Allow: /_next/static/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.wasm
 
 Sitemap: https://muneebaamir.dev/sitemap.xml

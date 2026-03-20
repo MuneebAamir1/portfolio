@@ -32,7 +32,7 @@ export function setScrollRotY(radians: number) {
 }
 
 function Model() {
-  const { scene, animations } = useGLTF("/model.glb");
+  const { scene, animations } = useGLTF("/model.glb", "/draco/");
   const modelRef = useRef<THREE.Group>(null);
   const { actions } = useAnimations(animations, modelRef);
 
@@ -158,4 +158,4 @@ export default function AvatarModel({ wrapStyle }: { wrapStyle?: any }) {
   );
 }
 
-useGLTF.preload("/model.glb");
+useGLTF.preload("/model.glb", "/draco/");

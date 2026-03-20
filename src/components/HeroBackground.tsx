@@ -8,26 +8,26 @@ interface Props {
 
 // Floating gradient orbs configuration
 const ORB_CONFIG = [
-  { xBase: 0.12, yBase: 0.28, r: 0.42, color: [108, 99, 255] as [number,number,number], speed: 0.00025, phase: 0     },
-  { xBase: 0.82, yBase: 0.62, r: 0.35, color: [255, 107, 157] as [number,number,number], speed: 0.00032, phase: 2.1  },
-  { xBase: 0.50, yBase: 0.08, r: 0.30, color: [0, 217, 184]   as [number,number,number], speed: 0.00020, phase: 4.3  },
-  { xBase: 0.78, yBase: 0.15, r: 0.25, color: [108, 99, 255]  as [number,number,number], speed: 0.00038, phase: 1.7  },
+  { xBase: 0.12, yBase: 0.28, r: 0.42, color: [108, 99, 255] as [number, number, number], speed: 0.00025, phase: 0 },
+  { xBase: 0.82, yBase: 0.62, r: 0.35, color: [255, 107, 157] as [number, number, number], speed: 0.00032, phase: 2.1 },
+  { xBase: 0.50, yBase: 0.08, r: 0.30, color: [0, 217, 184] as [number, number, number], speed: 0.00020, phase: 4.3 },
+  { xBase: 0.78, yBase: 0.15, r: 0.25, color: [108, 99, 255] as [number, number, number], speed: 0.00038, phase: 1.7 },
 ];
 
 export default function HeroBackground({ opacity }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Smooth mouse — use refs so zero React re-renders
-  const mouse    = useRef({ x: 0.5, y: 0.5 });
+  const mouse = useRef({ x: 0.5, y: 0.5 });
   const smoothMouse = useRef({ x: 0.5, y: 0.5 });
-  const raf      = useRef<number>(0);
+  const raf = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
-    const ctx    = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d")!;
     let w = 0, h = 0;
 
     const resize = () => {
-      w = canvas.width  = window.innerWidth;
+      w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
     };
     resize();
@@ -36,8 +36,8 @@ export default function HeroBackground({ opacity }: Props) {
       mouse.current = { x: e.clientX / w, y: e.clientY / h };
     };
 
-    window.addEventListener("resize",    resize);
-    window.addEventListener("mousemove", onMouse);
+    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("mousemove", onMouse, { passive: true });
 
     const draw = (t: number) => {
       // Smooth lerp for mouse glow — 8% lerp per frame ≈ very cinematic drag
@@ -48,7 +48,7 @@ export default function HeroBackground({ opacity }: Props) {
 
       // ── Floating orbs ───────────────────────────────────────────────────────
       for (const orb of ORB_CONFIG) {
-        const ox = (orb.xBase + Math.sin(t * orb.speed             + orb.phase) * 0.14) * w;
+        const ox = (orb.xBase + Math.sin(t * orb.speed + orb.phase) * 0.14) * w;
         const oy = (orb.yBase + Math.cos(t * orb.speed * 1.33 + orb.phase) * 0.10) * h;
         const radius = orb.r * Math.min(w, h);
         const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, radius);
@@ -99,7 +99,7 @@ export default function HeroBackground({ opacity }: Props) {
 
     return () => {
       cancelAnimationFrame(raf.current);
-      window.removeEventListener("resize",    resize);
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouse);
     };
   }, []);

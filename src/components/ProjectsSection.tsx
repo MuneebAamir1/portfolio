@@ -177,9 +177,34 @@ const ProjectCard = memo(function ProjectCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const { lightPos, onMove, onLeave } = useMouseReflection(cardRef);
 
+  // Apply accessibility attributes ONLY after mount to prevent SSR hydration mismatch.
+  // We avoid <button> because it strictly cannot contain nested <a> tags.
+  useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.setAttribute("role", "button");
+      cardRef.current.setAttribute("tabindex", "0");
+      cardRef.current.setAttribute("aria-label", `Select project: ${project.title}`);
+      
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      };
+      cardRef.current.addEventListener("keydown", handleKeyDown);
+      return () => {
+        if (cardRef.current) {
+          cardRef.current.removeEventListener("keydown", handleKeyDown);
+        }
+      };
+    }
+  }, [project.title, onClick]);
+
   return (
     <motion.div
       ref={cardRef}
+      suppressHydrationWarning
+
       className={`proj-card ${isActive ? "proj-card--active" : ""}`}
       onClick={onClick}
       onMouseMove={onMove}

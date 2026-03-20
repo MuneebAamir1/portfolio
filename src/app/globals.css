@@ -8,6 +8,15 @@
   box-sizing: border-box;
 }
 
+/* ── Universal Accessibility Focus ── */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
 :root {
   --bg: #040408;
   --surface: rgba(255, 255, 255, 0.03);
