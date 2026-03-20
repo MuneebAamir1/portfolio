@@ -82,8 +82,6 @@ export const metadata: Metadata = {
   other: {
     "theme-color": "#0f0f0f",
     "revisit-after": "7 days",
-    "google-site-verification": "{{GSC_VERIFICATION_CODE}}",
-    "msvalidate.01": "{{BING_VERIFICATION_CODE}}",
     "content-language": "en",
   },
 };
@@ -105,24 +103,20 @@ export default function RootLayout({
               "@type": "Person",
               name: "Muneeb Aamir",
               url: SITE_URL,
-              image: `${SITE_URL}/og-image.png`,
+              image: "https://muneebaamir.dev/apple-touch-icon.png",
+              telephone: "+923360465208",
               jobTitle: "Full Stack Developer",
               description: "Personal portfolio of Muneeb Aamir, a Full Stack Developer building modern web applications with React, Next.js, TypeScript, and Node.js.",
               sameAs: [
-                "https://github.com/muneebaamir",
-                "https://linkedin.com/in/muneebaamir",
+                "https://github.com/MuneebAamir1",
+                "https://linkedin.com/in/muneeb-aamir",
                 "https://twitter.com/muneebaamir",
               ],
             }),
           }}
         />
 
-        {/* ── Google Analytics 4 (placeholder — uncomment & replace ID) ── */}
-        {/* <script async src="https://www.googletagmanager.com/gtag/js?id={{GA4_MEASUREMENT_ID}}" /> */}
-        {/* <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','{{GA4_MEASUREMENT_ID}}');` }} /> */}
 
-        {/* ── Google Tag Manager (placeholder — uncomment & replace ID) ── */}
-        {/* <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{GTM_ID}}');` }} /> */}
       </head>
       <body>
         {/* ── Skip-to-content link (accessibility) ──────────────────────── */}
